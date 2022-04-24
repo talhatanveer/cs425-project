@@ -1,16 +1,24 @@
 -- tables
 -- Table: Customer
-CREATE TABLE Customer (
-    custID int  NOT NULL,
+CREATE TABLE IF NOT EXISTS Employees (
+    employeeID int NOT NULL,
+    email varchar(100) NOT NULL,
+    password varchar(100) NOT NULL,
+    firstName varchar(50) NOT NULL,
+    lastName varchar(50) NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS Customer (
+    customerID int  NOT NULL,
     email varchar(50)  NOT NULL,
     password varchar(50)  NOT NULL,
     name varchar(50)  NOT NULL,
     age int  NOT NULL,
-    CONSTRAINT Customer_pk PRIMARY KEY (custID)
+    CONSTRAINT Customer_pk PRIMARY KEY (customerID)
 );
 
 -- Table: Location
-CREATE TABLE Location (
+CREATE TABLE IF NOT EXISTS Location (
     locationID int  NOT NULL,
     country varchar(25)  NOT NULL,
     state char(2)  NULL,
@@ -21,33 +29,32 @@ CREATE TABLE Location (
 );
 
 -- Table: Order
-CREATE TABLE Orders (
-    custID int  NOT NULL,
-    ordID int  NOT NULL,
+CREATE TABLE IF NOT EXISTS Orders (
+    orderID int  NOT NULL,
+    customerID int  NOT NULL,
+    employeeID int NOT NULL,
     packageType varchar(20)  NOT NULL,
-    weight int  NOT NULL,
-    description varchar(100)  NULL,
-    sentTime timestamp  NOT NULL,
-    destCountry varchar(25)  NOT NULL,
-    destState char(2)  NULL,
-    destCity varchar(25)  NOT NULL,
-    destStreet varchar(25)  NOT NULL,
-    destZipCode int  NOT NULL,
-    CONSTRAINT Order_pk PRIMARY KEY (ordID)
+    packageWeight float  NOT NULL,
+    packageDescription varchar(100)  NULL,
+    dispatchTime timestamp  NOT NULL,
+    originLocationID int NOT NULL,
+    destinationLocationID int NOT NULL,
+    
+    CONSTRAINT Order_pk PRIMARY KEY (orderID)
 );
 
 -- Table: PackageStatus
-CREATE TABLE PackageStatus (
-    ordID int  NOT NULL,
+CREATE TABLE IF NOT EXISTS PackageStatus (
+    orderID int  NOT NULL,
     time timestamp  NOT NULL,
     locationID int  NOT NULL,
     nextLocationID int  NULL,
     destination int  NOT NULL,
-    CONSTRAINT PackageStatus_pk PRIMARY KEY (ordID)
+    CONSTRAINT PackageStatus_pk PRIMARY KEY (orderID)
 );
 
 -- Table: Warehouses
-CREATE TABLE Warehouses (
+CREATE TABLE IF NOT EXISTS Warehouses (
     warehouseID int  NOT NULL,
     locationID int  NOT NULL,
     CONSTRAINT Warehouses_pk PRIMARY KEY (warehouseID)
