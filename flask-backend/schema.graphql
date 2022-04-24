@@ -1,5 +1,5 @@
 
-type Employee {
+type Employees {
     employeeID: ID!
     firstName: String!
     lastName: String!
@@ -7,12 +7,20 @@ type Employee {
     password: String!
 }
 
-type EmployeeResult {
+type EmployeesResult {
     success: Boolean!
     errors: [String]
-    employee: Employee
+    employee: Employees
+}
+
+# type Query {
+#     getEmployee (email: String!): EmployeesResult!
+# }
+
+type EmployeeSearch {
+    email: String!
 }
 
 type Query {
-    getEmployee (email: String!): EmployeeResult!
+    getEmployee (email: String!): Employees!
 }
