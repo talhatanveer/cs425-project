@@ -1,36 +1,43 @@
 -- tables
 -- Table: Customer
 CREATE TABLE IF NOT EXISTS Employees (
-    employeeID int NOT NULL,
+    employeeID serial NOT NULL,
     email varchar(100) NOT NULL,
     password varchar(100) NOT NULL,
     firstName varchar(50) NOT NULL,
-    lastName varchar(50) NOT NULL
+    lastName varchar(50) NOT NULL,
+
+    CONSTRAINT Employees_pk 
+        PRIMARY KEY (employeeID)
 );
 
-CREATE TABLE IF NOT EXISTS Customer (
-    customerID int  NOT NULL,
+CREATE TABLE IF NOT EXISTS Customers (
+    customerID serial  NOT NULL,
     email varchar(50)  NOT NULL,
     password varchar(50)  NOT NULL,
     name varchar(50)  NOT NULL,
     age int  NOT NULL,
-    CONSTRAINT Customer_pk PRIMARY KEY (customerID)
+
+    CONSTRAINT Customers_pk 
+        PRIMARY KEY (customerID)
 );
 
 -- Table: Location
-CREATE TABLE IF NOT EXISTS Location (
-    locationID int  NOT NULL,
+CREATE TABLE IF NOT EXISTS Locations (
+    locationID serial  NOT NULL,
     country varchar(25)  NOT NULL,
     state char(2)  NULL,
     city varchar(25)  NOT NULL,
     street varchar(25)  NOT NULL,
     zipCode int  NOT NULL,
-    CONSTRAINT Location_pk PRIMARY KEY (locationID)
+
+    CONSTRAINT Locations_pk 
+        PRIMARY KEY (locationID)
 );
 
 -- Table: Order
 CREATE TABLE IF NOT EXISTS Orders (
-    orderID int  NOT NULL,
+    orderID serial  NOT NULL,
     customerID int  NOT NULL,
     employeeID int NOT NULL,
     packageType varchar(20)  NOT NULL,
@@ -40,71 +47,59 @@ CREATE TABLE IF NOT EXISTS Orders (
     originLocationID int NOT NULL,
     destinationLocationID int NOT NULL,
     
-    CONSTRAINT Order_pk PRIMARY KEY (orderID)
+    CONSTRAINT Order_pk 
+        PRIMARY KEY (orderID),
+    
+    CONSTRAINT Locations_origin_fk
+        FOREIGN KEY (originLocationID) 
+        REFERENCES Locations (locationID),
+    
+    CONSTRAINT Locations_dest_fk
+        FOREIGN KEY (destinationLocationID)
+        REFERENCES Locations (locationID),
+    
+    CONSTRAINT Customers_fk
+        FOREIGN KEY (customerID)
+        REFERENCES Customers (customerID),
+
+    CONSTRAINT Employees_fk
+        FOREIGN KEY (employeeID)
+        REFERENCES Employees (employeeID)
 );
 
 -- Table: PackageStatus
-CREATE TABLE IF NOT EXISTS PackageStatus (
+CREATE TABLE IF NOT EXISTS OrderStatus (
     orderID int  NOT NULL,
-    time timestamp  NOT NULL,
     locationID int  NOT NULL,
+    estimateArrivalTime timestamp  NOT NULL,
     nextLocationID int  NULL,
-    destination int  NOT NULL,
-    CONSTRAINT PackageStatus_pk PRIMARY KEY (orderID)
+    
+    CONSTRAINT PackageStatus_pk 
+        PRIMARY KEY (orderID),
+
+    CONSTRAINT Orders_fk
+        FOREIGN KEY (orderID)
+        REFERENCES Orders (orderID),
+    
+    CONSTRAINT Locations_fk
+        FOREIGN KEY (locationID)
+        REFERENCES Locations (locationID),
+
+    CONSTRAINT Locations_fk_next
+        FOREIGN KEY (nextLocationID)
+        REFERENCES Locations (locationID) 
 );
 
 -- Table: Warehouses
 CREATE TABLE IF NOT EXISTS Warehouses (
-    warehouseID int  NOT NULL,
+    warehouseID serial  NOT NULL,
+    warehouseName varchar(100) NOT NULL,
     locationID int  NOT NULL,
-    CONSTRAINT Warehouses_pk PRIMARY KEY (warehouseID)
+
+    CONSTRAINT Warehouses_pk 
+        PRIMARY KEY (warehouseID),
+    
+    CONSTRAINT Locations_fk
+        FOREIGN KEY (locationID)
+        REFERENCES Locations (locationID)
 );
-
--- sequences
--- Sequence: Customer_seq
-CREATE SEQUENCE Customer_seq
-      INCREMENT BY 1
-      NO MINVALUE
-      NO MAXVALUE
-      START WITH 1
-      NO CYCLE
-;
-
--- Sequence: Location_seq
-CREATE SEQUENCE Location_seq
-      INCREMENT BY 1
-      NO MINVALUE
-      NO MAXVALUE
-      START WITH 1
-      NO CYCLE
-;
-
--- Sequence: Order_seq
-CREATE SEQUENCE Order_seq
-      INCREMENT BY 1
-      NO MINVALUE
-      NO MAXVALUE
-      START WITH 1
-      NO CYCLE
-;
-
--- Sequence: PackageStatus_seq
-CREATE SEQUENCE PackageStatus_seq
-      INCREMENT BY 1
-      NO MINVALUE
-      NO MAXVALUE
-      START WITH 1
-      NO CYCLE
-;
-
--- Sequence: Warehouses_seq
-CREATE SEQUENCE Warehouses_seq
-      INCREMENT BY 1
-      NO MINVALUE
-      NO MAXVALUE
-      START WITH 1
-      NO CYCLE
-;
-
--- End of file.
-

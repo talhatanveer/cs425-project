@@ -1,0 +1,18 @@
+
+type Employee {
+    employeeID: ID!
+    firstName: String!
+    lastName: String!
+    email: String!
+    password: String!
+}
+
+type EmployeeResult {
+    success: Boolean!
+    errors: [String]
+    employee: Employee
+}
+
+type Query {
+    getEmployee (email: String!): EmployeeResult!
+}
