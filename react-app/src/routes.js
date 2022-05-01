@@ -59,7 +59,7 @@ const routes = [
   },
   {
     type: "collapse",
-    name: "Tables",
+    name: "Customers",
     key: "tables",
     icon: <Icon fontSize="small">table_view</Icon>,
     route: "/tables",
@@ -67,27 +67,11 @@ const routes = [
   },
   {
     type: "collapse",
-    name: "Billing",
+    name: "Orders",
     key: "billing",
     icon: <Icon fontSize="small">receipt_long</Icon>,
     route: "/billing",
     component: <Billing />,
-  },
-  {
-    type: "collapse",
-    name: "RTL",
-    key: "rtl",
-    icon: <Icon fontSize="small">format_textdirection_r_to_l</Icon>,
-    route: "/rtl",
-    component: <RTL />,
-  },
-  {
-    type: "collapse",
-    name: "Notifications",
-    key: "notifications",
-    icon: <Icon fontSize="small">notifications</Icon>,
-    route: "/notifications",
-    component: <Notifications />,
   },
   {
     type: "collapse",
@@ -99,20 +83,12 @@ const routes = [
   },
   {
     type: "collapse",
-    name: "Sign In",
+    name: "Sign Out",
     key: "sign-in",
-    icon: <Icon fontSize="small">login</Icon>,
+    icon: <Icon fontSize="small">logout</Icon>,
     route: "/authentication/sign-in",
     component: <SignIn />,
-  },
-  {
-    type: "collapse",
-    name: "Sign Up",
-    key: "sign-up",
-    icon: <Icon fontSize="small">assignment</Icon>,
-    route: "/authentication/sign-up",
-    component: <SignUp />,
-  },
+  }
 ];
 
 export default routes;

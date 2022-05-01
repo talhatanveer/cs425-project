@@ -53,6 +53,8 @@ import { useMaterialUIController, setMiniSidenav, setOpenConfigurator } from "co
 import brandWhite from "assets/images/logo-ct.png";
 import brandDark from "assets/images/logo-ct-dark.png";
 
+import AuthProvider from "context/AuthContext";
+
 import {
   ApolloClient,
   InMemoryCache,
@@ -169,7 +171,7 @@ export default function App() {
               <Sidenav
                 color={sidenavColor}
                 brand={(transparentSidenav && !darkMode) || whiteSidenav ? brandDark : brandWhite}
-                brandName="Material Dashboard 2"
+                brandName="LedEx Package Tracking"
                 routes={routes}
                 onMouseEnter={handleOnMouseEnter}
                 onMouseLeave={handleOnMouseLeave}
@@ -179,10 +181,12 @@ export default function App() {
             </>
           )}
           {layout === "vr" && <Configurator />}
-          <Routes>
-            {getRoutes(routes)}
-            <Route path="*" element={<Navigate to="/dashboard" />} />
-          </Routes>
+          <AuthProvider>
+            <Routes>
+              {getRoutes(routes)}
+              <Route path="*" element={<Navigate to="/dashboard" />} />
+            </Routes>
+          </AuthProvider>
         </ThemeProvider>
       </ApolloProvider>
     </CacheProvider>
@@ -194,7 +198,7 @@ export default function App() {
           <Sidenav
             color={sidenavColor}
             brand={(transparentSidenav && !darkMode) || whiteSidenav ? brandDark : brandWhite}
-            brandName="Material Dashboard 2"
+            brandName="LedEx Package Tracking"
             routes={routes}
             onMouseEnter={handleOnMouseEnter}
             onMouseLeave={handleOnMouseLeave}

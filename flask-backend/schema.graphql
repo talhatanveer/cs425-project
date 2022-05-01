@@ -1,16 +1,26 @@
 
-type Employees {
-    employeeID: ID!
+schema {
+    query: Query
+}
+
+type Customers {
+    customerID: ID!
     firstName: String!
     lastName: String!
-    email: String!
-    password: String!
+}
+
+type Employees {
+    employeeID: ID
+    firstName: String
+    lastName: String
+    email: String
+    password: String
 }
 
 type EmployeesResult {
     success: Boolean!
     errors: [String]
-    employee: Employees
+    employees: [Employees]
 }
 
 # type Query {
@@ -22,5 +32,6 @@ type EmployeeSearch {
 }
 
 type Query {
-    getEmployee (email: String!): Employees!
+    employee (email: String!): Employees!
+    employees: [Employees]
 }

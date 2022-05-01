@@ -50,12 +50,12 @@ class Location(db.Model):
         }
 
 class Orders(db.Model):
-    orderID = db.Column(db.Integer)
+    orderID = db.Column(db.Integer, primary_key = True)
     customerID = db.Column(db.Integer)
     employeeID = db.Column(db.Integer)
     destinationLocationID = db.Column(db.Integer)
     originLocationID = db.Column(db.Integer)
-    packageWeight = db.Column(db.Double)
+    packageWeight = db.Column(db.Float)
     packageDescription = db.Column(db.String)
 
     def to_dict(self):
@@ -70,7 +70,7 @@ class Orders(db.Model):
         }
 
 class OrderStatus(db.Model):
-    orderID = db.Column(db.Integer)
+    orderID = db.Column(db.Integer, primary_key = True)
     locationID = db.Column(db.Integer)
     nextLocationID = db.Column(db.Integer)
     estimatedArrivalTime = db.Column(db.Integer)

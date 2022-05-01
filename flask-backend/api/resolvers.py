@@ -14,3 +14,11 @@ def getEmployee_resolver(obj, info, email):
         }
     
     return payload
+
+def listEmployees_resolver(obj, info):
+    try:
+        employees = [d.to_dict() for d in Employees.query.all()]
+        return employees
+    except Exception as error:
+        print(error)
+        return []

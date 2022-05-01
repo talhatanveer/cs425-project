@@ -1,18 +1,19 @@
 from api import app, db
 from ariadne import load_schema_from_path, make_executable_schema, \
-    graphql_sync, snake_case_fallback_resolvers, ObjectType
+    graphql_sync, ObjectType
 from ariadne.constants import PLAYGROUND_HTML
 from flask import request, jsonify
 
-from api.resolvers import getEmployee_resolver
+from api.resolvers import getEmployee_resolver, listEmployees_resolver
 
 # RESOLVERS
 query = ObjectType("Query")
-query.set_field("getEmployee", getEmployee_resolver)
+query.set_field("employee", getEmployee_resolver)
+query.set_field("employees", listEmployees_resolver)
 
 type_defs = load_schema_from_path("schema.graphql")
 schema = make_executable_schema(
-    type_defs, query, snake_case_fallback_resolvers
+    type_defs, query
 )
 
 @app.route("/graphql", methods=["GET"])

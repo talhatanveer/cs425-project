@@ -16,10 +16,8 @@ CREATE TABLE IF NOT EXISTS Employees (
 
 CREATE TABLE IF NOT EXISTS Customers (
     "customerID" serial  NOT NULL,
-    "email" varchar(50)  NOT NULL,
-    "password" varchar(50)  NOT NULL,
     "firstName" varchar(50) NOT NULL,
-    "lastName" varchar(50) NOT NULL,
+    "lastName" varchar(50) NOT NULL
 
     CONSTRAINT Customers_pk 
         PRIMARY KEY ("customerID")
@@ -76,6 +74,7 @@ CREATE TABLE IF NOT EXISTS OrderStatus (
     "locationID" int  NOT NULL,
     "estimateArrivalTime" timestamp  NOT NULL,
     "nextLocationID" int  NULL,
+    "delivered" boolean DEFAULT false,
     
     CONSTRAINT PackageStatus_pk 
         PRIMARY KEY ("orderID"),
