@@ -30,11 +30,11 @@ function Billing() {
   return (
     <DashboardLayout>
       <DashboardNavbar absolute isMini />
-      <MDBox mt={10} mb={5}>
-          <Grid>
+        <MDBox mt={10} mb={5}>
+            <Grid>
               <BillingInformation />
-          </Grid>
-      </MDBox>
+            </Grid>
+        </MDBox>
       <Footer />
     </DashboardLayout>
   );

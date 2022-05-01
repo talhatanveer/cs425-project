@@ -53,7 +53,7 @@ import { useMaterialUIController, setMiniSidenav, setOpenConfigurator } from "co
 import brandWhite from "assets/images/logo-ct.png";
 import brandDark from "assets/images/logo-ct-dark.png";
 
-import AuthProvider from "context/AuthContext";
+import {AuthProvider} from "context/AuthContext";
 
 import {
   ApolloClient,
@@ -161,57 +161,27 @@ export default function App() {
     </MDBox>
   );
 
-  return direction === "rtl" ? (
-    <CacheProvider value={rtlCache}>
-      <ApolloProvider client={client}>
-        <ThemeProvider theme={darkMode ? themeDarkRTL : themeRTL}>
-          <CssBaseline />
-          {layout === "dashboard" && (
-            <>
-              <Sidenav
-                color={sidenavColor}
-                brand={(transparentSidenav && !darkMode) || whiteSidenav ? brandDark : brandWhite}
-                brandName="LedEx Package Tracking"
-                routes={routes}
-                onMouseEnter={handleOnMouseEnter}
-                onMouseLeave={handleOnMouseLeave}
-              />
-              <Configurator />
-              {configsButton}
-            </>
-          )}
-          {layout === "vr" && <Configurator />}
-          <AuthProvider>
-            <Routes>
-              {getRoutes(routes)}
-              <Route path="*" element={<Navigate to="/dashboard" />} />
-            </Routes>
-          </AuthProvider>
-        </ThemeProvider>
-      </ApolloProvider>
-    </CacheProvider>
-  ) : (
-    <ThemeProvider theme={darkMode ? themeDark : theme}>
-      <CssBaseline />
-      {layout === "dashboard" && (
-        <>
-          <Sidenav
-            color={sidenavColor}
-            brand={(transparentSidenav && !darkMode) || whiteSidenav ? brandDark : brandWhite}
-            brandName="LedEx Package Tracking"
-            routes={routes}
-            onMouseEnter={handleOnMouseEnter}
-            onMouseLeave={handleOnMouseLeave}
-          />
-          <Configurator />
-          {configsButton}
-        </>
-      )}
-      {layout === "vr" && <Configurator />}
-      <Routes>
-        {getRoutes(routes)}
-        <Route path="*" element={<Navigate to="/dashboard" />} />
-      </Routes>
+  return (
+    <ThemeProvider theme={theme}>
+      <AuthProvider>
+        <CssBaseline />
+        {layout === "dashboard" && (
+          <>
+            <Sidenav
+              color={sidenavColor}
+              brand={(transparentSidenav && !darkMode) || whiteSidenav ? brandDark : brandWhite}
+              brandName="LedEx Package Tracking"
+              routes={routes}
+              onMouseEnter={handleOnMouseEnter}
+              onMouseLeave={handleOnMouseLeave}
+            />
+          </>
+        )}
+        <Routes>
+          {getRoutes(routes)}
+          <Route path="*" element={<Navigate to="/dashboard" />} />
+        </Routes>
+      </AuthProvider>
     </ThemeProvider>
-  );
+  )
 }

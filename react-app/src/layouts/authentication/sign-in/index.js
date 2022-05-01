@@ -15,19 +15,8 @@ Coded by www.creative-tim.com
 
 import { useState } from "react";
 
-// react-router-dom components
-import { Link } from "react-router-dom";
-
 // @mui material components
 import Card from "@mui/material/Card";
-import Switch from "@mui/material/Switch";
-import Grid from "@mui/material/Grid";
-import MuiLink from "@mui/material/Link";
-
-// @mui icons
-import FacebookIcon from "@mui/icons-material/Facebook";
-import GitHubIcon from "@mui/icons-material/GitHub";
-import GoogleIcon from "@mui/icons-material/Google";
 
 // Material Dashboard 2 React components
 import MDBox from "components/MDBox";
@@ -41,10 +30,15 @@ import BasicLayout from "layouts/authentication/components/BasicLayout";
 // Images
 import bgImage from "assets/images/bg-sign-in-basic.jpeg";
 
-function Basic() {
-  const [rememberMe, setRememberMe] = useState(false);
+import useAuth from 'hooks/useAuth';
 
-  const handleSetRememberMe = () => setRememberMe(!rememberMe);
+const Basic = () => {
+
+  const { login } = useAuth();
+  
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  // const login = () => {}
 
   return (
     <BasicLayout image={bgImage}>
@@ -67,13 +61,25 @@ function Basic() {
         <MDBox pt={4} pb={3} px={3}>
           <MDBox component="form" role="form">
             <MDBox mb={2}>
-              <MDInput type="email" label="Email" fullWidth />
+              <MDInput 
+                type="email" 
+                label="Email"
+                value={email}
+                onChange={({target}) => setEmail(target.value)}
+                fullWidth 
+              />
             </MDBox>
             <MDBox mb={2}>
-              <MDInput type="password" label="Password" fullWidth />
+              <MDInput 
+                type="password" 
+                label="Password"
+                value={password}
+                onChange={({target}) => setPassword(target.value)}
+                fullWidth 
+              />
             </MDBox>
             <MDBox mt={4} mb={1}>
-              <MDButton variant="gradient" color="info" fullWidth>
+              <MDButton variant="gradient" color="info" onClick={() => login(email, password)} fullWidth>
                 sign in
               </MDButton>
             </MDBox>

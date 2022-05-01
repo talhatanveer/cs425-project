@@ -122,7 +122,7 @@ function DashboardNavbar({ absolute, light, isMini }) {
       return colorValue;
     },
   });
-
+  console.log(route)
   return (
     <AppBar
       position={absolute ? "absolute" : navbarType}

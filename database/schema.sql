@@ -16,8 +16,11 @@ CREATE TABLE IF NOT EXISTS Employees (
 
 CREATE TABLE IF NOT EXISTS Customers (
     "customerID" serial  NOT NULL,
+    "locationID" int NOT NULL,
     "firstName" varchar(50) NOT NULL,
-    "lastName" varchar(50) NOT NULL
+    "lastName" varchar(50) NOT NULL,
+    "email" varchar(50) NOT NULL,
+    "phone" varchar(50) NOT NULL,
 
     CONSTRAINT Customers_pk 
         PRIMARY KEY ("customerID")

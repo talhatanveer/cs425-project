@@ -40,10 +40,15 @@ function BillingInformation() {
           {
             OrderData.map(({
               senderFirstName, 
-              senderLastName
+              senderLastName,
+
+              destinationStreet,
+              destinationState,
+              destinationZipCode
             }, idx) => (
               <Bill 
-                name={`${senderFirstName} ${senderLastName}`}
+                senderName={`${senderFirstName} ${senderLastName}`}
+                destinationAddress={`${destinationStreet} ${destinationState}`}
               />
             ))
           }
