@@ -21,22 +21,21 @@ class Customers(db.Model):
     firstName = db.Column(db.String)
     lastName = db.Column(db.String)
     email = db.Column(db.String)
-    password = db.Column(db.String)
+    phone = db.Column(db.String)
 
     def to_dict(self):
         return {
             "customerID": self.customerID,
             "email": self.email,
-            "password": self.password,
             "firstName": self.firstName,
             "lastName": self.lastName,
         }
-
 
 class Location(db.Model):
     locationID = db.Column(db.Integer, primary_key = True)
     country = db.Column(db.String)
     state = db.Column(db.String)
+    street = db.Column(db.String)
     city = db.Column(db.String)
     zipCode = db.Column(db.Integer)
 
@@ -45,6 +44,7 @@ class Location(db.Model):
             "locationID": self.locationID,
             "country": self.country,
             "state": self.state,
+            "street": self.street,
             "city": self.city,
             "zipCode": self.zipCode
         }

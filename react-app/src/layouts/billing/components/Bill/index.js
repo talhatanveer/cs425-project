@@ -35,6 +35,7 @@ function Bill({
   noGutter,
 
   senderName,
+  recepientName,
   destinationAddress,
   status
 }) {
@@ -86,9 +87,9 @@ function Bill({
         </MDBox>
         <MDBox mb={1} lineHeight={0}>
           <MDTypography variant="caption" color="text">
-            Email Address:&nbsp;&nbsp;&nbsp;
+            Recepient Name:&nbsp;&nbsp;&nbsp;
             <MDTypography variant="caption" fontWeight="medium">
-              {email}
+              {recepientName}
             </MDTypography>
           </MDTypography>
         </MDBox>

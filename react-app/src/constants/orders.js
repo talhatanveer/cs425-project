@@ -10,6 +10,7 @@ export default [
         originZipCode: 60610,
         originStreet: '3201 S State St',
         destinationCountry: 'US',
+        destinationCity: 'Springs',
         destinationState: 'CO',
         destinationZipCode: 30011,
         destinationStreet: '3501 Clark St'
@@ -25,6 +26,7 @@ export default [
         originZipCode: 60610,
         originStreet: '3201 S State St',
         destinationCountry: 'US',
+        destinationCity: 'Springs',
         destinationState: 'CO',
         destinationZipCode: 30011,
         destinationStreet: '3501 Clark St'
@@ -39,6 +41,7 @@ export default [
         originState: 'IL',
         originZipCode: 60610,
         originStreet: '3201 S State St',
+        destinationCity: 'Springs',
         destinationCountry: 'US',
         destinationState: 'CO',
         destinationZipCode: 30011,

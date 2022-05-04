@@ -16,7 +16,6 @@ CREATE TABLE IF NOT EXISTS Employees (
 
 CREATE TABLE IF NOT EXISTS Customers (
     "customerID" serial  NOT NULL,
-    "locationID" int NOT NULL,
     "firstName" varchar(50) NOT NULL,
     "lastName" varchar(50) NOT NULL,
     "email" varchar(50) NOT NULL,
@@ -47,7 +46,7 @@ CREATE TABLE IF NOT EXISTS Orders (
     "packageType" varchar(20)  NOT NULL,
     "packageWeight" float  NOT NULL,
     "packageDescription" varchar(100)  NULL,
-    "dispatchTime" timestamp  NOT NULL,
+    "dispatchTime" timestamp DEFAULT NOW() NOT NULL,
     "originLocationID" int NOT NULL,
     "destinationLocationID" int NOT NULL,
     

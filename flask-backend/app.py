@@ -4,12 +4,23 @@ from ariadne import load_schema_from_path, make_executable_schema, \
 from ariadne.constants import PLAYGROUND_HTML
 from flask import request, jsonify
 
-from api.resolvers import getEmployee_resolver, listEmployees_resolver
+from api.resolvers import (
+    employee_resolver, 
+    employees_resolver,
+    customers_resolver,
+    orders_resolver
+)
 
 # RESOLVERS
 query = ObjectType("Query")
-query.set_field("employee", getEmployee_resolver)
-query.set_field("employees", listEmployees_resolver)
+
+query.set_field("employee", employee_resolver)
+query.set_field("employees", employees_resolver)
+query.set_field("customers", customers_resolver)
+query.set_field("orders", orders_resolver)
+
+# app = Flask(__name__)
+# CORS(app, esources={r"/*": {"origins": "*"}})
 
 type_defs = load_schema_from_path("schema.graphql")
 schema = make_executable_schema(

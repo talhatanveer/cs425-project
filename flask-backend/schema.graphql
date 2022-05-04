@@ -7,6 +7,8 @@ type Customers {
     customerID: ID!
     firstName: String!
     lastName: String!
+    email: String!
+    phone: String!
 }
 
 type Employees {
@@ -23,9 +25,15 @@ type EmployeesResult {
     employees: [Employees]
 }
 
-# type Query {
-#     getEmployee (email: String!): EmployeesResult!
-# }
+type Orders {
+    customerID: ID!
+    employeeID: ID!
+    destinationLocationID: ID!
+    originLocationID: ID!
+    packageWeight: Float!
+    packageDescription: String!
+    packageType: String!
+}
 
 type EmployeeSearch {
     email: String!
@@ -34,4 +42,27 @@ type EmployeeSearch {
 type Query {
     employee (email: String!): Employees!
     employees: [Employees]
+
+    customer (email: String!): Customers!
+    customers: [Customers]
+
+    order (orderID: ID!): Orders!
+    orders: [Orders]
+}
+
+type CustomerPayload {
+    customerID: ID!
+}
+
+type OrderPayload {
+    orderID: ID!
+}
+
+type Mutation {
+    createCustomer (
+        firstName: String!
+        lastName: String!
+        email: String!
+        phone: String!
+    ): CustomerPayload!
 }

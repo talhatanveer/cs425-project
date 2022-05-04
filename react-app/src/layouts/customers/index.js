@@ -24,15 +24,21 @@ import DashboardNavbar from "examples/Navbars/DashboardNavbar";
 import Footer from "examples/Footer";
 import DataTable from "examples/Tables/DataTable";
 
-import authorsTableData from "layouts/tables/data/authorsTableData";
+import authorsTableData from "./data/authorsTableData";
 
-function Tables() {
+import { useQuery } from '@apollo/client';
+
+import { LIST_CUSTOMERS } from 'queries/customers'
+
+function Customers() {
   const { columns, rows } = authorsTableData();
+  const data = useQuery(LIST_CUSTOMERS);
+  console.log(data);
 
   return (
     <DashboardLayout>
       <DashboardNavbar />
-      <MDBox pt={6} pb={3}>
+        <MDBox pt={6} pb={3}>
           <Grid item xs={12}>
             <Card>
               <MDBox
@@ -60,10 +66,10 @@ function Tables() {
               </MDBox>
             </Card>
           </Grid>
-      </MDBox>
+        </MDBox>
       <Footer />
     </DashboardLayout>
   );
 }
 
-export default Tables;
+export default Customers;

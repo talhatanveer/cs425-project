@@ -44,11 +44,16 @@ function BillingInformation() {
 
               destinationStreet,
               destinationState,
-              destinationZipCode
+              destinationCity,
+              destinationZipCode,
+
+              recepientFirstName,
+              recepientLastName
             }, idx) => (
               <Bill 
                 senderName={`${senderFirstName} ${senderLastName}`}
-                destinationAddress={`${destinationStreet} ${destinationState}`}
+                recepientName={`${recepientFirstName} ${recepientLastName}`}
+                destinationAddress={`${destinationStreet}, ${destinationCity}, ${destinationState}, ${destinationZipCode}`}
               />
             ))
           }
