@@ -25,35 +25,47 @@ import OrderData from 'constants/orders';
 // Billing page components
 import Bill from "layouts/billing/components/Bill";
 
-function BillingInformation() {
+function BillingInformation({
+  orders = [],
+  title
+}) {
 
-  
   return (
     <Card id="delete-account">
       <MDBox pt={3} px={2}>
         <MDTypography variant="h6" fontWeight="medium">
-          Recent Orders
+          {title}
         </MDTypography>
       </MDBox>
       <MDBox pt={1} pb={2} px={2}>
         <MDBox component="ul" display="flex" flexDirection="column" p={0} m={0}>
           {
-            OrderData.map(({
-              senderFirstName, 
-              senderLastName,
-
-              destinationStreet,
-              destinationState,
+            orders.map(({
+              orderID,
+              packageDescription,
+              packageType,
+              destinationCountry,
               destinationCity,
+              destinationState,
+              destinationStreet,
               destinationZipCode,
-
-              recepientFirstName,
-              recepientLastName
+              originCountry,
+              originCity,
+              originState,
+              originStreet,
+              originZipCode,
+              senderFirstName,
+              senderLastName,
+              delivered
             }, idx) => (
               <Bill 
                 senderName={`${senderFirstName} ${senderLastName}`}
-                recepientName={`${recepientFirstName} ${recepientLastName}`}
-                destinationAddress={`${destinationStreet}, ${destinationCity}, ${destinationState}, ${destinationZipCode}`}
+                destinationAddress={`${destinationStreet}, ${destinationCity}, ${destinationState}, ${destinationZipCode}, ${destinationCountry}`}
+                originAddress={`${originStreet}, ${originCity}, ${originState}, ${originZipCode}, ${originCountry}`}
+                delivered={delivered}
+                packageType={packageType}
+                packageDescription={packageDescription}
+                orderID={orderID}
               />
             ))
           }

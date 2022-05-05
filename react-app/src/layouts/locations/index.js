@@ -33,13 +33,13 @@ import authorsTableData from "./data/authorsTableData";
 
 import { useQuery } from '@apollo/client';
 
-import { LIST_CUSTOMERS } from 'queries/customers';
+import { LIST_LOCATIONS } from 'queries/locations';
 
-import AddCustomer from "modals/AddCustomer";
+import AddLocation from "modals/AddLocation";
 
-function Customers() {
-  const { data = {} } = useQuery(LIST_CUSTOMERS) || {};
-  const { columns, rows } = authorsTableData(data?.customers || []);
+function Locations() {
+  const { data = {} } = useQuery(LIST_LOCATIONS) || {};
+  const { columns, rows } = authorsTableData(data?.locations || []);
 
   const [modal, setModal] = useState(null);
 
@@ -60,7 +60,7 @@ function Customers() {
                 coloredShadow="info"
               >
                 <MDTypography variant="h6" color="white">
-                  Customers
+                  Locations
                 </MDTypography>
               </MDBox>
               <MDBox pt={3}>
@@ -75,13 +75,13 @@ function Customers() {
             </Card>
 
             <Button onClick={() => setModal('add')}>
-              Create Customer
+              Add Location
             </Button>
           </Grid>
         </MDBox>
       <Footer />
 
-      <AddCustomer 
+      <AddLocation 
         open={modal === 'add'}
         onClose={() => setModal(null)}
       />
@@ -89,4 +89,4 @@ function Customers() {
   );
 }
 
-export default Customers;
+export default Locations;

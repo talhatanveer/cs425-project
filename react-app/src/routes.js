@@ -38,6 +38,7 @@ Coded by www.creative-tim.com
 // Material Dashboard 2 React layouts
 import Dashboard from "layouts/dashboard";
 import Customers from "layouts/customers";
+import Locations from "layouts/locations";
 import Billing from "layouts/billing";
 import Profile from "layouts/profile";
 import SignIn from "layouts/authentication/sign-in";
@@ -53,6 +54,14 @@ const routes = [
     icon: <Icon fontSize="small">dashboard</Icon>,
     route: "/dashboard",
     component: <Dashboard />,
+  },
+  {
+    type: "collapse",
+    name: "Locations",
+    key: "locations",
+    icon: <Icon fontSize="small">map</Icon>,
+    route: "/locations",
+    component: <Locations />
   },
   {
     type: "collapse",

@@ -25,14 +25,32 @@ import DashboardNavbar from "examples/Navbars/DashboardNavbar";
 import Footer from "examples/Footer";
 import ComplexStatisticsCard from "examples/Cards/StatisticsCards/ComplexStatisticsCard";
 
-// Data
-import reportsLineChartData from "layouts/dashboard/data/reportsLineChartData";
+import { gql, useQuery } from '@apollo/client'
 
-// Dashboard components
-import Projects from "layouts/dashboard/components/Projects";
-import OrdersOverview from "layouts/dashboard/components/OrdersOverview";
+const STATS_QUERY = gql`
+  query Stats {
+    statistics {
+      totalOrders
+      pendingOrders
+      completedOrders
+      totalCustomers
+      totalEmployees
+    }
+  }
+`;
 
 function Dashboard() {
+
+  const { loading, data } = useQuery(STATS_QUERY);
+  const { statistics } = data || {};
+
+  const {
+    totalOrders,
+    pendingOrders,
+    completedOrders,
+    totalCustomers,
+    totalEmployees
+  } = statistics || {};
 
   return (
     <DashboardLayout>
@@ -45,7 +63,7 @@ function Dashboard() {
                 color="dark"
                 icon="cardboard-box"
                 title="Total Orders"
-                count={5}
+                count={totalOrders}
               />
             </MDBox>
           </Grid>
@@ -54,7 +72,7 @@ function Dashboard() {
               <ComplexStatisticsCard
                 icon="leaderboard"
                 title="Total Customers"
-                count={10}
+                count={totalCustomers}
               />
             </MDBox>
           </Grid>
@@ -64,7 +82,7 @@ function Dashboard() {
                 color="success"
                 icon="store"
                 title="Total Employees"
-                count="5"
+                count={totalEmployees}
               />
             </MDBox>
           </Grid>
@@ -74,7 +92,7 @@ function Dashboard() {
                 color="primary"
                 icon="check"
                 title="Completed Orders"
-                count="2"
+                count={completedOrders}
               />
             </MDBox>
           </Grid>
@@ -85,21 +103,11 @@ function Dashboard() {
                 color="warning"
                 icon="alarm"
                 title="Pending Orders"
-                count="2"
+                count={pendingOrders}
               />
             </MDBox>
           </Grid>
         </Grid>
-        <MDBox>
-          {/* <Grid container spacing={3}>
-            <Grid item xs={12} md={6} lg={8}>
-              <Projects />
-            </Grid>
-            <Grid item xs={12} md={6} lg={4}>
-              <OrdersOverview />
-            </Grid>
-          </Grid> */}
-        </MDBox>
       </MDBox>
       <Footer />
     </DashboardLayout>

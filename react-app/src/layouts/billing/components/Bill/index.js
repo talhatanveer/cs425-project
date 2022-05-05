@@ -27,18 +27,29 @@ import MDButton from "components/MDButton";
 // Material Dashboard 2 React context
 import { useMaterialUIController } from "context";
 
+import { LIST_ORDERS, UPDATE_ORDER } from "queries/orders";
+import { useMutation } from "@apollo/client"
+
 function Bill({ 
-  name, 
-  company, 
-  email, 
-  vat, 
   noGutter,
 
+  orderID,
+  packageType,
+  packageWeight,
+  packageDescription,
   senderName,
-  recepientName,
   destinationAddress,
-  status
+  originAddress,
+  delivered
 }) {
+
+  const [UpdateOrder, { loading }] = useMutation(UPDATE_ORDER, {
+    refetchQueries: [
+      { query: LIST_ORDERS, variables: { delivered: true } },
+      { query: LIST_ORDERS, variables: { delivered: false } }
+    ]
+  });
+
   const [controller] = useMaterialUIController();
   const { darkMode } = controller;
 
@@ -68,13 +79,20 @@ function Bill({
 
           <MDBox display="flex" alignItems="center" mt={{ xs: 2, sm: 0 }} ml={{ xs: -1.5, sm: 0 }}>
             <MDBox mr={1}>
-              <MDButton variant="text" color="error">
-                <Icon>delete</Icon>&nbsp;delete
-              </MDButton>
+              {
+                !delivered ?
+                <>
+                <MDButton onClick={() => UpdateOrder({ variables: { orderID, delivered: true }})} variant="text" color="success">
+                  <Icon>check</Icon>&nbsp;Complete Order
+                </MDButton>
+                <MDButton variant="text" color="error">
+                  <Icon>delete</Icon>&nbsp;Remove Order
+                </MDButton>
+              </>
+                : <></>
+              }
             </MDBox>
-            <MDButton variant="text" color={darkMode ? "white" : "dark"}>
-              <Icon>edit</Icon>&nbsp;edit
-            </MDButton>
+            
           </MDBox>
         </MDBox>
         <MDBox mb={1} lineHeight={0}>
@@ -87,16 +105,32 @@ function Bill({
         </MDBox>
         <MDBox mb={1} lineHeight={0}>
           <MDTypography variant="caption" color="text">
-            Recepient Name:&nbsp;&nbsp;&nbsp;
+            Origin Address:&nbsp;&nbsp;&nbsp;
             <MDTypography variant="caption" fontWeight="medium">
-              {recepientName}
+              {originAddress}
+            </MDTypography>
+          </MDTypography>
+        </MDBox>
+        <MDBox mb={1} lineHeight={0}>
+          <MDTypography variant="caption" color="text">
+            Package Description:&nbsp;&nbsp;&nbsp;
+            <MDTypography variant="caption" fontWeight="medium">
+              {packageDescription}
+            </MDTypography>
+          </MDTypography>
+        </MDBox>
+        <MDBox mb={1} lineHeight={0}>
+          <MDTypography variant="caption" color="text">
+            Package Type:&nbsp;&nbsp;&nbsp;
+            <MDTypography variant="caption" fontWeight="medium">
+              {packageType}
             </MDTypography>
           </MDTypography>
         </MDBox>
         <MDTypography variant="caption" color="text">
           Order Status: &nbsp;&nbsp;&nbsp;
           <MDTypography variant="caption" fontWeight="medium">
-            {status}
+            {delivered ? 'Completed' : 'Pending'}
           </MDTypography>
         </MDTypography>
       </MDBox>

@@ -30,7 +30,19 @@ import ProfileInfoCard from "examples/Cards/InfoCards/ProfileInfoCard";
 // Overview page components
 import Header from "layouts/profile/components/Header";
 
+import { useQuery } from "@apollo/client";
+import { GET_EMPLOYEE } from "queries/employees";
+
 function Overview() {
+
+  const { data = {} } = useQuery(GET_EMPLOYEE, {
+    variables: {
+      employeeID: localStorage.getItem('employeeId')
+    }
+  }) || {};
+
+  const { firstName, lastName, email } = data?.employee || {};
+
   return (
     <DashboardLayout>
       <DashboardNavbar />
@@ -40,15 +52,14 @@ function Overview() {
           <Grid spacing={1}>
               <Divider orientation="vertical" sx={{ ml: -2, mr: 1 }} />
               <ProfileInfoCard
-                title="profile information"
+                title=""
                 info={{
-                  fullName: "Alec M. Thompson",
-                  mobile: "(44) 123 1234 123",
-                  email: "alecthompson@mail.com",
+                  fullName: `${firstName} ${lastName}`,
+                  email: `${email}`,
                   location: "USA",
                 }}
                 social={[]}
-                action={{ route: "", tooltip: "Edit Profile" }}
+                action={{ route: "", tooltip: "" }}
                 shadow={false}
               />
               <Divider orientation="vertical" sx={{ mx: 0 }} />

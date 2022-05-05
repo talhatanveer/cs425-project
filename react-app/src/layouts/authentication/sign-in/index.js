@@ -34,11 +34,10 @@ import useAuth from 'hooks/useAuth';
 
 const Basic = () => {
 
-  const { login } = useAuth();
+  const { auth } = useAuth();
   
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  // const login = () => {}
 
   return (
     <BasicLayout image={bgImage}>
@@ -79,7 +78,7 @@ const Basic = () => {
               />
             </MDBox>
             <MDBox mt={4} mb={1}>
-              <MDButton variant="gradient" color="info" onClick={() => login(email, password)} fullWidth>
+              <MDButton variant="gradient" color="info" onClick={() => auth(email, password)} fullWidth>
                 sign in
               </MDButton>
             </MDBox>

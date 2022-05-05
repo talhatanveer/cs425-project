@@ -1,14 +1,16 @@
 
 schema {
     query: Query
+    mutation: Mutation
 }
 
 type Customers {
     customerID: ID!
     firstName: String!
     lastName: String!
-    email: String!
-    phone: String!
+    email: String
+    phone: String
+    createdAt: String
 }
 
 type Employees {
@@ -16,53 +18,114 @@ type Employees {
     firstName: String
     lastName: String
     email: String
-    password: String
-}
-
-type EmployeesResult {
-    success: Boolean!
-    errors: [String]
-    employees: [Employees]
 }
 
 type Orders {
+    orderID: ID
+    customerID: ID
+    employeeID: ID
+    destinationLocationID: ID
+    originLocationID: ID
+    packageWeight: Float
+    packageDescription: String
+    packageType: String
+    destinationCountry: String
+    destinationCity: String
+    destinationState: String
+    destinationStreet: String
+    destinationZipCode: String
+    originCountry: String
+    originCity: String
+    originState: String
+    originStreet: String
+    originZipCode: String
+    senderFirstName: String
+    senderLastName: String
+    delivered: Boolean
+}
+
+type Locations {
+    locationID: ID!
+    country: String!
+    state: String!
+    city: String!
+    street: String!
+    zipCode: String!
+}
+
+type CustomerResult {
+    status: String!
+    customer: Customers!
+}
+
+type EmployeeResult {
+    success: Boolean!
+    employee: Employees
+}
+
+type LocationResult {
+    status: String!
+    location: Locations
+}
+
+type OrderPayload {
+    success: Boolean!
+    order: Orders
+}
+
+type DeletionResult {
+    status: String!
+}
+
+input LocationInput {
+    country: String!
+    state: String!
+    city: String!
+    street: String!
+    zipCode: String!
+}
+
+input CustomerInput {
+    firstName: String!
+    lastName: String!
+    email: String!
+    phone: String
+}
+
+input OrderInput {
     customerID: ID!
     employeeID: ID!
     destinationLocationID: ID!
     originLocationID: ID!
+    packageType: String!
     packageWeight: Float!
     packageDescription: String!
-    packageType: String!
 }
 
-type EmployeeSearch {
-    email: String!
+type Statistics {
+    totalCustomers: Int
+    totalEmployees: Int
+    totalOrders: Int
+    completedOrders: Int
+    pendingOrders: Int
 }
 
 type Query {
-    employee (email: String!): Employees!
+    employee (employeeID: ID!): Employees!
     employees: [Employees]
-
     customer (email: String!): Customers!
     customers: [Customers]
-
     order (orderID: ID!): Orders!
-    orders: [Orders]
-}
-
-type CustomerPayload {
-    customerID: ID!
-}
-
-type OrderPayload {
-    orderID: ID!
+    orders (delivered: Boolean): [Orders]
+    locations: [Locations]
+    statistics: Statistics
+    login (email: String!, password: String!): EmployeeResult
 }
 
 type Mutation {
-    createCustomer (
-        firstName: String!
-        lastName: String!
-        email: String!
-        phone: String!
-    ): CustomerPayload!
+    createCustomer (input: CustomerInput): CustomerResult!
+    addLocation (input: LocationInput): LocationResult!
+    createOrder (input: OrderInput): OrderPayload!
+    updateOrderStatus (orderID: ID!, delivered: Boolean!): OrderPayload!
+    deleteCustomer (customerID: ID): DeletionResult!
 }

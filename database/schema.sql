@@ -49,6 +49,7 @@ CREATE TABLE IF NOT EXISTS Orders (
     "dispatchTime" timestamp DEFAULT NOW() NOT NULL,
     "originLocationID" int NOT NULL,
     "destinationLocationID" int NOT NULL,
+    "delivered" BOOLEAN DEFAULT FALSE,
     
     CONSTRAINT Order_pk 
         PRIMARY KEY ("orderID"),
